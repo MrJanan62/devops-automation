@@ -1,7 +1,8 @@
 package com.youtube.tutorial.ecommercebackend.api.model;
 
 
-import jakarta.persistence.GeneratedValue;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,11 +10,24 @@ import lombok.Setter;
 @Setter
 public class RegistrationBody {
 
+  @NotNull
+  @NotBlank
   private String username;
-  private String email;
-  private String password;
-  private String firstName;
-  private String lastName;
 
+  @NotNull
+  @NotBlank
+  private String email;
+
+  @NotNull
+  @NotBlank
+  private String password;
+
+  @NotNull
+  @NotBlank
+  private String firstName;
+
+  @NotNull
+  @NotBlank
+  private String lastName;
 
 }

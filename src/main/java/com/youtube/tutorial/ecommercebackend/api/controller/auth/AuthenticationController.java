@@ -1,8 +1,12 @@
 package com.youtube.tutorial.ecommercebackend.api.controller.auth;
 
+import com.youtube.tutorial.ecommercebackend.api.model.LoginBody;
+import com.youtube.tutorial.ecommercebackend.api.model.LoginResponse;
 import com.youtube.tutorial.ecommercebackend.api.model.RegistrationBody;
 import com.youtube.tutorial.ecommercebackend.exception.UserAlreadyExistsException;
 import com.youtube.tutorial.ecommercebackend.service.UserService;
+import jakarta.validation.Valid;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,4 +37,17 @@ public class AuthenticationController {
         }
 
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginBody loginBody){
+        String jwt = userService.loginUser(loginBody);
+        if(jwt == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }else {
+            LoginResponse response = new LoginResponse();
+            response.setJwt(jwt);
+            return ResponseEntity.ok(response);
+        }
+    }
+
 }
